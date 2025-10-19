@@ -4,6 +4,9 @@ import mongoose, { connect } from "mongoose";
 import dotenv from "dotenv";
 import {registerUser,loginUser,getUser} from "./controllers/userController.js";
 import userRoutes from "./routes/userRoutes.js";
+import Expense from "./models/expense.js";
+import {createExpense,getExpenseById,getExpenses,updateExpense,deleteExpense} from "./controllers/expenseController.js";
+import expenseRoutes from "./routes/expenseRoutes.js";
 
 dotenv.config();
 
@@ -14,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users",userRoutes);
+app.use("/api/expenses",expenseRoutes);
 
 const MONGO_URL=process.env.MONGO_URL;
 
