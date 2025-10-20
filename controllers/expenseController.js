@@ -31,7 +31,7 @@ async function getExpenseById(req,res){
 async function getExpenses(req,res){
     const userId=req.params.userId.trim();
     const expenses=await Expense.find({userId});
-    if(!expenses || expenses.length==0){
+    if(!expenses || expenses.length===0){
         res.status(404).json({message:"Expenses Not Found"});
     }
     else{
