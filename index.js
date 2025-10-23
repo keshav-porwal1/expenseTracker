@@ -7,6 +7,7 @@ import expenseRoutes from "./routes/expenseRoutes.js";
 import incomeRoutes from "./routes/incomeRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js"
 import notificationRoutes from "./routes/notificationRoutes.js"
+import dashboardRoutes from "./routes/dashboardRoutes.js"
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api/expenses",expenseRoutes);
 app.use("/api/incomes",incomeRoutes);
 app.use("/api/budgets",budgetRoutes);
 app.use("/api/notifications",notificationRoutes);
+app.use("/api/dashboard",dashboardRoutes);
 
 const MONGO_URL=process.env.MONGO_URL;
 
