@@ -1,5 +1,6 @@
 import express from "express";
 import {createIncome,getIncomeById,getIncomes,updateIncome,deleteIncome} from "../controllers/incomeController.js"
+import authMiddleware from "../middleware/authorization.js";
 
 const router=express.Router();
 

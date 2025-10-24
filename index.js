@@ -1,15 +1,18 @@
 import express from "express";
 import cors from "cors";
 import mongoose, { connect } from "mongoose";
+
 import dotenv from "dotenv";
+dotenv.config();
+
 import userRoutes from "./routes/userRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
 import incomeRoutes from "./routes/incomeRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js"
 import notificationRoutes from "./routes/notificationRoutes.js"
 import dashboardRoutes from "./routes/dashboardRoutes.js"
+import authMiddleware from "./middleware/authorization.js";
 
-dotenv.config();
 
 const app = express();
 const PORT=3000;
@@ -18,11 +21,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users",userRoutes);
-app.use("/api/expenses",expenseRoutes);
-app.use("/api/incomes",incomeRoutes);
-app.use("/api/budgets",budgetRoutes);
-app.use("/api/notifications",notificationRoutes);
-app.use("/api/dashboard",dashboardRoutes);
+app.use("/api/expenses",authMiddleware,expenseRoutes);
+app.use("/api/incomes",authMiddleware,incomeRoutes);
+app.use("/api/budgets",authMiddleware,budgetRoutes);
+app.use("/api/notifications",authMiddleware,notificationRoutes);
+app.use("/api/dashboard",authMiddleware,dashboardRoutes);
 
 const MONGO_URL=process.env.MONGO_URL;
 
