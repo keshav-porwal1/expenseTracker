@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <title>Expense Tracker | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Expense Tracker</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="text-gray-600 dark:text-gray-300 text-xl hover:text-gray-800 dark:hover:text-gray-100">
+                        🌙
+                    </button>
+                    <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Income Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-600 dark:text-gray-400 font-semibold">Total Income</h3>
+                    <span class="text-3xl">💵</span>
+                </div>
+                <p id="total-income" class="text-3xl font-bold text-green-600 dark:text-green-400">₹0</p>
+            </div>
+
+            <!-- Total Expenses Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-600 dark:text-gray-400 font-semibold">Total Expenses</h3>
+                    <span class="text-3xl">💰</span>
+                </div>
+                <p id="total-expense" class="text-3xl font-bold text-red-600 dark:text-red-400">₹0</p>
+            </div>
+
+            <!-- Remaining Balance Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-600 dark:text-gray-400 font-semibold">Balance</h3>
+                    <span class="text-3xl">⚖️</span>
+                </div>
+                <p id="remaining-balance" class="text-3xl font-bold text-blue-600 dark:text-blue-400">₹0</p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Quick Actions</h2>
+            <div class="flex flex-wrap gap-4">
+                <button class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-semibold">
+                    ➕ Add Income
+                </button>
+                <button class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 font-semibold">
+                    ➖ Add Expense
+                </button>
+                <button class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 font-semibold">
+                    📊 Set Budget
+                </button>
+                <button class="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 font-semibold">
+                    📈 View Reports
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Active Budgets Section -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Active Budgets</h2>
+                <div id="budgets-container" class="space-y-3">
+                    <p class="text-gray-500 dark:text-gray-400 text-center py-4">No active budgets</p>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Notifications</h2>
+                <div id="notifications-container" class="space-y-3">
+                    <p class="text-gray-500 dark:text-gray-400 text-center py-4">No notifications</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions Section -->
+        <div class="mt-8">
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+                <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Recent Transactions</h2>
+                <div id="transactions-container">
+                    <p class="text-gray-500 dark:text-gray-400 text-center py-4">No recent transactions</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Set initial mode based on localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            html.classList.add('dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+    </script>
+
+</body>
+</html>
